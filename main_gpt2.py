@@ -1,5 +1,6 @@
 from diagrams import Diagram, Cluster
 from diagrams.custom import Custom
+
 import os
 
 def create_diagram(base_path, image_names):
@@ -9,19 +10,16 @@ def create_diagram(base_path, image_names):
     if missing_keys:
         print(f"Warning: Missing images for keys {missing_keys}")
 
-    with Diagram("図の説明2", show=False):
+    with Diagram("図の説明3", show=False):
         with Cluster("Cluster 1"):
             elderly = Custom("社長の思いつき", image_paths.get("elderly"))
             non_tech_boss = Custom("命令だけの部長", image_paths.get("non_tech_boss"))
             presenter = Custom("プロの驚き屋", image_paths.get("presenter"))
             elderly >> non_tech_boss << presenter
-
-        with Cluster("Cluster 2"):
             tech_boss = Custom("外注するだけのIT部門", image_paths.get("tech_boss"))
             factory_worker = Custom("理解の無い現場", image_paths.get("factory_worker"))
             tech_boss << factory_worker
-        
-        with Cluster("Cluster 3"):
+            non_tech_boss >> tech_boss
             non_ai_engineer = Custom("ノウハウがない大手SIer", image_paths.get("non_ai_engineer"), width="0.5", height="0.5")
             coder_1 = Custom("実績がほしい下請け1", image_paths.get("coder_1"), width="0.5", height="0.5")
             coder_2 = Custom("仕事がほしい下請け2", image_paths.get("coder_1"), width="0.5", height="0.5")            
@@ -29,8 +27,8 @@ def create_diagram(base_path, image_names):
             catastrophe = Custom("フリーランスエンジニア", image_paths.get("catastrophe"), width="0.5", height="0.5")
             non_ai_engineer >> coder_1 >> coder_2 >> ai_product >> catastrophe
 
-        non_tech_boss >> tech_boss
         tech_boss >> non_ai_engineer
+
         
 
 # 画像ファイル名とノード名の対応
